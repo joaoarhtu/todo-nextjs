@@ -67,6 +67,3 @@ git push -u origin main
 
 (Crie antes um repositório vazio chamado `todo-nextjs` em https://github.com/new.)
 
-
-- Repositório: _cole aqui o link do GitHub_
-- Site hospedado: _cole aqui o link da Vercel_
