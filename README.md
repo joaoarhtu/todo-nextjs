@@ -52,18 +52,4 @@ npm run build
 npm start
 ```
 
-## Como publicar
-
-### 1. GitHub
-
-```bash
-git init
-git add .
-git commit -m "To-do list com Next.js"
-git branch -M main
-git remote add origin https://github.com/SEU-USUARIO/todo-nextjs.git
-git push -u origin main
-```
-
-(Crie antes um repositório vazio chamado `todo-nextjs` em https://github.com/new.)
 
