@@ -67,13 +67,6 @@ git push -u origin main
 
 (Crie antes um repositório vazio chamado `todo-nextjs` em https://github.com/new.)
 
-### 2. Vercel
-
-1. Acesse https://vercel.com e entre com sua conta do GitHub.
-2. Clique em **Add New… → Project** e importe o repositório `todo-nextjs`.
-3. Mantenha as configurações padrão (o Next.js é detectado automaticamente) e clique em **Deploy**.
-
-## Links da entrega
 
 - Repositório: _cole aqui o link do GitHub_
 - Site hospedado: _cole aqui o link da Vercel_
