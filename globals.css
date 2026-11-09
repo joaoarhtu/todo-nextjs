@@ -1,0 +1,412 @@
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+:root {
+  --bg: #e9eee8;
+  --surface: #fafbf8;
+  --field: #ffffff;
+  --ink: #16211b;
+  --ink-soft: #5a675f;
+  --line: #d8dfd6;
+  --accent: #2c7a58;
+  --accent-soft: #d9eadf;
+  --danger: #b23b2b;
+  --danger-soft: #f6e1dd;
+
+  --radius-lg: 24px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--fonte), system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(0.75rem, 4vw, 3rem);
+}
+
+.app {
+  width: 100%;
+  max-width: 640px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.25rem, 5vw, 2.25rem);
+  box-shadow: 0 24px 48px -32px rgba(22, 33, 27, 0.4);
+}
+
+.app__title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.app__footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.25rem;
+}
+
+/* Evita mostrar "0 pendentes" por um instante antes de ler o localStorage */
+.app--loading .summary,
+.app--loading .filters {
+  visibility: hidden;
+}
+
+/* ==========================================================================
+   Resumo (contagem + progresso)
+   ========================================================================== */
+.summary {
+  margin-top: 1rem;
+}
+
+.summary__main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.875rem;
+  margin: 0;
+}
+
+.summary__number {
+  font-size: clamp(4rem, 16vw, 6rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary__label {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.summary__detail {
+  margin: 0.5rem 0 1rem;
+  color: var(--ink-soft);
+}
+
+.progress {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  overflow: hidden;
+}
+
+.progress__bar {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+/* ==========================================================================
+   Formulário
+   ========================================================================== */
+.form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+}
+
+.form__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.8rem 1rem;
+  background: var(--field);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-md);
+  font-size: 1rem; /* 16px evita zoom automático no iOS */
+}
+
+.form__input::placeholder {
+  color: var(--ink-soft);
+  opacity: 0.8;
+}
+
+.form__input:hover {
+  border-color: var(--ink-soft);
+}
+
+.form__input:focus-visible {
+  border-color: var(--ink);
+  outline-offset: 1px;
+}
+
+/* ==========================================================================
+   Botões
+   ========================================================================== */
+.btn {
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn--primary {
+  min-height: 48px;
+  padding: 0 1.25rem;
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: #2b3b32;
+}
+
+.btn--primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn--ghost {
+  padding: 0.5rem 1rem;
+  border-color: var(--line);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.btn--ghost:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ==========================================================================
+   Filtros
+   ========================================================================== */
+.filters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin-top: 1.25rem;
+  padding: 4px;
+  background: var(--bg);
+  border-radius: var(--radius-md);
+}
+
+.filters__btn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0 0.4rem;
+  padding: 0.6rem 0.4rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.filters__btn:hover {
+  color: var(--ink);
+}
+
+.filters__btn.is-active {
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(22, 33, 27, 0.15);
+}
+
+.filters__count {
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+}
+
+/* ==========================================================================
+   Lista de tarefas
+   ========================================================================== */
+.list {
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.item:last-child {
+  border-bottom: 0;
+}
+
+.item__main {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 0.8rem 0.25rem;
+  cursor: pointer;
+}
+
+/* O checkbox real fica invisível, mas continua acessível por teclado */
+.item__check {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.item__box {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--ink-soft);
+  border-radius: 8px;
+  background: var(--field);
+  color: #fff;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.item__box svg {
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.item__main:hover .item__box {
+  border-color: var(--ink);
+}
+
+.item__check:checked + .item__box {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.item__check:checked + .item__box svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.item__check:focus-visible + .item__box {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.item__text {
+  font-size: 1.0625rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.item.is-done .item__text {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+}
+
+.item__delete {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink-soft);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.item__delete:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.empty {
+  margin: 1rem 0 0;
+  padding: 2rem 1rem;
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius-md);
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+/* ==========================================================================
+   Responsivo e acessibilidade
+   ========================================================================== */
+@media (max-width: 420px) {
+  .form {
+    flex-direction: column;
+  }
+
+  .filters__btn {
+    font-size: 0.875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
